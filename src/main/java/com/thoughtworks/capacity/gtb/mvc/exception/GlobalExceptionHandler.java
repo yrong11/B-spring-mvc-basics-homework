@@ -23,4 +23,11 @@ public class GlobalExceptionHandler {
         errorResult.setMessage(exception.getMessage());
         return ResponseEntity.badRequest().body(errorResult);
     }
+
+    @ExceptionHandler(value = {UserLoginException.class})
+    public ResponseEntity handleUserLoginException(UserLoginException exception){
+        ErrorResult errorResult = new ErrorResult();
+        errorResult.setMessage(exception.getMessage());
+        return ResponseEntity.badRequest().body(errorResult);
+    }
 }

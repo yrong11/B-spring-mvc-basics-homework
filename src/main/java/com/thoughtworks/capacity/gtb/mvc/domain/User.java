@@ -1,5 +1,7 @@
 package com.thoughtworks.capacity.gtb.mvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +19,8 @@ import java.util.Objects;
 @NoArgsConstructor
 public class User {
 
+    private long id = System.currentTimeMillis();
+
     @NotEmpty(message = "用户名不能为空") @Size(max = 10, min = 3, message = "用户名不合法")
     @Pattern(regexp = "^[0-9a-zA-Z_]{1,}$", message = "用户名不合法")
     private String username;
@@ -27,6 +31,10 @@ public class User {
     @Email(message = "邮箱地址不合法")
     private String email;
 
+    public User(String name, String password){
+        this.username = name;
+        this.password = password;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,5 +46,15 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username);
+    }
+
+    @JsonProperty
+    public long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public void setId(int id) {
+        this.id = id;
     }
 }
