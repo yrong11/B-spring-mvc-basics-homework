@@ -22,7 +22,6 @@ public class UserService {
     }
 
     public User login(String username, String pwd) throws UserLoginException {
-        validateLogin(username, pwd);
         if (isExistUser(username)){
             User user = getUserByName(username);
             if (!checkPwd(user, pwd))
@@ -45,11 +44,5 @@ public class UserService {
         return users.stream().filter(item -> item.getUsername().equals(name)).findFirst().get();
 
     }
-    public void validateLogin(String username, String pwd) throws UserLoginException {
-        String regex = "^[0-9a-zA-Z_]{1,}$";
-        if (username.length() > 10 || username.length() < 3 || !username.matches(regex))
-            throw new UserLoginException(ErrorMsg.USER_NAME_NOT_VALID);
-        if (pwd.length() > 12 || pwd.length() < 5)
-            throw new UserLoginException(ErrorMsg.PASSWORD_NOT_VALID);
-    }
+
 }
